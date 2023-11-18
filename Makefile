@@ -19,7 +19,7 @@ $(build_dir)/$(target_name): $(build_dir)/go-drive $(build_dir)/web $(build_dir)
 $(build_dir)/go-drive: $(build_dir)
 	CGO_CFLAGS="-Wno-return-local-addr" \
 	go build -o $(build_dir) -ldflags \
-		"-w -s \
+		"-linkmode external -extldflags -static -w -s \
 		-X 'go-drive/common.Version=${BUILD_VERSION}' \
 		-X 'go-drive/common.RevHash=$(shell git rev-parse HEAD)' \
 		-X 'go-drive/common.BuildAt=$(shell date -R)'"
