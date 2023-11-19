@@ -65,15 +65,19 @@ jobs:
           go-version: "^1.21.4"
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         
       - name: Show building env info
         run: |
           ldd --version
           hub --version
+          go --version
+          npm --version
           node --version
 
       - name: Test
