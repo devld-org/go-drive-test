@@ -70,6 +70,9 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Configure git
+        run: git config --global --add safe.directory $(pwd)
         
       - name: Show building env info
         run: |
