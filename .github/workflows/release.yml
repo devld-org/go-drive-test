@@ -114,7 +114,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
+          pwd
           for i in `find build/ -maxdepth 1 -type f -name '*.tar.gz' -or -name '*.zip'`; do
+            echo "adding artifact: ${i}"
             assets="${assets} -a ${i}"
           done
           hub release create -d -p ${assets} -m "Release ${GITHUB_REF##*/}" ${GITHUB_REF##*/}
