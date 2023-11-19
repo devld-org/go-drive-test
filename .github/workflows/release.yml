@@ -9,10 +9,22 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Install build-essential
-        run: sudo apt-get update && sudo apt-get install zip build-essential gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf gcc-mingw-w64-x86-64
+        run: sudo apt-get update && sudo apt-get install curl tar zip build-essential gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf gcc-mingw-w64-x86-64
+
+      - name: Install hub
+        run: |
+          curl -s -L https://github.com/mislav/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz -o /tmp/hub.tgz
+          mkdir /tmp/hub-installer
+          tar xf /tmp/hub.tgz --strip-components 1 -C /tmp/hub-installer
+          sudo /tmp/hub-installer/install
+
+      - name: Show building env info
+        run: |
+          ldd --version
+          hub --version
 
       - name: Cache downloaded cross-build environment
         id: cache-cross-build-env
